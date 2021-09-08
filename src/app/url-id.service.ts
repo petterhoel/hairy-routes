@@ -28,7 +28,7 @@ export class UrlIdService {
     const paths = segmentPaths.map((path, index) => index === 1 ? id : path)
     this.router.navigate(paths);
   }
-  
+
   private navigationHandler(path: string = '') {
     const withputPrefix  = path.substring(this.prefix.length)
     const nextSlasgAt = withputPrefix.indexOf('/');
