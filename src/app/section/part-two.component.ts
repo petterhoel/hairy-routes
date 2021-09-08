@@ -1,21 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-part-two',
-  template: `
-    <p>
-      part-two works!
-    </p>
-  `,
-  styles: [
-  ],
+  template: `<p>2</p>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PartTwoComponent implements OnInit {
+export class PartTwoComponent {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}

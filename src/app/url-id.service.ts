@@ -3,21 +3,19 @@ import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {NumberService} from "./number.service";
 import {filter, tap} from "rxjs/operators";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UrlIdService {
   private prefix = "/section/";
   constructor(private route: ActivatedRoute,
               private numberService: NumberService,
               private router: Router) {
+    this.route.paramMap.subscribe(p => console.debug({pid: p.get('jaja')}))
 
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       filter(({url}: NavigationEnd) => url.startsWith(this.prefix)),
       tap((url) => this.navigationHandler(url.url))
     ).subscribe();
-
   }
 
   navigate(id: string):void {
@@ -26,14 +24,16 @@ export class UrlIdService {
     if (!segmentPaths?.length){
       return;
     }
+    console.debug({id})
     const paths = segmentPaths.map((path, index) => index === 1 ? id : path)
     this.router.navigate(paths);
   }
-
+  
   private navigationHandler(path: string = '') {
     const withputPrefix  = path.substring(this.prefix.length)
     const nextSlasgAt = withputPrefix.indexOf('/');
     const id = withputPrefix.substring(0, nextSlasgAt)
+    console.debug({id})
     this.numberService.updateNumber(id || '')
   }
 }

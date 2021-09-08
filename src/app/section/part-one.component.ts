@@ -1,21 +1,17 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {UrlIdService} from "../url-id.service";
 
 @Component({
-  selector: 'app-part-one',
-  template: `
-    <p>
-      part-one works!
-    </p>
-  `,
-  styles: [
-  ],
+  providers: [{ provide: UrlIdService, useClass: UrlIdService  }],
+  template: `<p>1</p>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PartOneComponent implements OnInit {
 
-  constructor() { }
+  constructor(private url: UrlIdService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(p => console.debug({pid: p.get('jaja')}))
   }
-
 }
